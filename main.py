@@ -1,11 +1,19 @@
 #pip install pandas-datareader
 #pip install matplotlib
 #pip install yfinance
+#pip install plotly
+
+# yfinance documentation:
+# https://pypi.org/project/yfinance/
+
 
 import numpy as np
 import pandas as pd
 import pandas_datareader as data
+
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+
 import yfinance as yf
 import datetime as dt
 
@@ -16,24 +24,68 @@ end = dt.datetime(2024,12,31)
 df = yf.download(stock,start,end)
 
 # returns first 5 data rows
-print('Head')
-print(df.head())
+#print('Head')
+#print(df.head())
 
 # returns number of data and data columns
 # Date is a unique identifier
 # Below are the column headers
 # Close / High / Low / Open / Volume
-print('Shape')
-print(df.shape)
+#print('Shape')
+#print(df.shape)
 
 # returns first 5 and last 5 data rows
-print('Info')
-print(df.info)
+#print('Info')
+#print(df.info)
 
 # checks for missing data
-print(df.isnull())
+#print(df.isnull())
 
 # returns number of missing data in each column
-print(df.isnull().sum())
+#print(df.isnull().sum())
 
-print(df.describe())
+# returns table with standard information
+# count, mean, std, min, Q1, Q2, Q3, max
+# print(df.describe())
+
+# resets index / order of data
+df = df.reset_index()
+
+# returns column names
+#print(df.columns)
+#output below:
+# MultiIndex([(  'Date',     ''),
+#            ( 'Close', 'AAPL'),
+#            (  'High', 'AAPL'),
+#            (   'Low', 'AAPL'),
+#            (  'Open', 'AAPL'),
+#            ('Volume', 'AAPL')],
+#           names=['Price', 'Ticker'])
+
+# exports to a csv file
+csv_name = stock+" data.csv"
+df.to_csv(csv_name)
+
+# read csv files and allows data indexing for fig
+data1 = pd.read_csv(csv_name)
+fig = go.Figure(data = [go.Candlestick(x = data1['Date'],
+                                       open = data1['Open'],
+                                       high = data1['High'],
+                                       low = data1['Low'],
+                                       close = data1['Close'])])
+fig.update_layout(xaxis_rangeslider_visible = False)
+#fig.show()
+
+
+# plotting with matplotlib
+plt.figure(figsize=(12,6))
+plt.plot(df['Close'],label = f'{stock} Close Price',linewidth=2)
+plt.title(f'{stock} Closing prices over time')
+plt.xlabel('Date')
+plt.ylabel('Closing Price (USD)')
+plt.legend()
+plt.show()
+
+
+#moving average
+
