@@ -6,7 +6,6 @@
 # yfinance documentation:
 # https://pypi.org/project/yfinance/
 
-
 import numpy as np
 import pandas as pd
 import pandas_datareader as data
@@ -77,15 +76,17 @@ fig.update_layout(xaxis_rangeslider_visible = False)
 #fig.show()
 
 
-# plotting with matplotlib
-plt.figure(figsize=(12,6))
-plt.plot(df['Close'],label = f'{stock} Close Price',linewidth=2)
-plt.title(f'{stock} Closing prices over time')
-plt.xlabel('Date')
-plt.ylabel('Closing Price (USD)')
-plt.legend()
-plt.show()
-
 
 #moving average
+days_average100 = df.Close.rolling(100).mean()
+days_average200 = df.Close.rolling(200).mean()
 
+# multiple plots
+plt.plot(df['Date'],df.Close,label = f'{stock} Close Price')
+plt.plot(df['Date'],days_average100, label = f'{stock} moving average 100 price')
+plt.plot(df['Date'],days_average200, label = f'{stock} moving average 200 price')
+
+plt.xlabel('Date')
+plt.ylabel('USD')
+plt.legend()
+plt.show()
