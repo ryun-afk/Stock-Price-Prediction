@@ -90,3 +90,13 @@ plt.xlabel('Date')
 plt.ylabel('USD')
 plt.legend()
 plt.show()
+
+# exponentially weightted moving
+ema100 = df.Close.ewm(span=100,adjust = False).mean()
+ema200 = df.Close.ewm(span=200,adjust = False).mean()
+print(df.pct_change)
+plt.plot(df['Date'],df.Close,label = f'{stock} Close Price')
+plt.plot(df['Date'],ema100, label = f'{stock} moving average 100 price')
+plt.plot(df['Date'],ema200, label = f'{stock} moving average 200 price')
+plt.legend()
+plt.show()
