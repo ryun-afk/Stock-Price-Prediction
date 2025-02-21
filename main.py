@@ -16,6 +16,8 @@ import plotly.graph_objects as go
 import yfinance as yf
 import datetime as dt
 
+from sklearn.preprocessing import MinMaxScaler
+
 # retrieve data sets from yahoo finance API
 stock = "AAPL"
 start = dt.datetime(2020,1,1)
@@ -76,7 +78,7 @@ fig.update_layout(xaxis_rangeslider_visible = False)
 #fig.show()
 
 
-
+'''
 #moving average
 days_average100 = df.Close.rolling(100).mean()
 days_average200 = df.Close.rolling(200).mean()
@@ -91,6 +93,7 @@ plt.ylabel('USD')
 plt.legend()
 plt.show()
 
+
 # exponentially weightted moving
 ema100 = df.Close.ewm(span=100,adjust = False).mean()
 ema200 = df.Close.ewm(span=200,adjust = False).mean()
@@ -100,3 +103,16 @@ plt.plot(df['Date'],ema100, label = f'{stock} moving average 100 price')
 plt.plot(df['Date'],ema200, label = f'{stock} moving average 200 price')
 plt.legend()
 plt.show()
+'''
+
+
+# Training and Testing LSTM
+partition = .7
+data_training = pd.DataFrame(df.Close[0:int(len(df)*partition)])
+data_testing = pd.DataFrame(df.Close[int(len(df)*partition):int(len(df))])
+
+print(data_training.shape)
+print(data_testing.shape)
+
+scaler = MinMaxScaler(feature_range=(0,1))
+data_training_arr = scaler.fit_transform(data_training)
