@@ -1,0 +1,29 @@
+# yfinance documentation:
+# https://pypi.org/project/yfinance/
+
+# uninstalls all pip installs
+pip freeze | xargs pip uninstall -y
+
+PIP INSTALLS:
+pip install numpy
+pip install matplotlib
+pip install pandas
+pip install yfinance
+
+IMPORTS:
+import numpy as np
+import matplotlib.pyplot as plt
+
+import pandas
+
+
+
+#pip install plotly
+import plotly.graph_objects as go
+
+#pip install yfinance
+import yfinance as yf
+
+
+#pip install scikit-learn
+from sklearn.preprocessing import MinMaxScaler
