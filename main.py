@@ -1,22 +1,33 @@
-#pip install pandas-datareader
-#pip install matplotlib
-#pip install yfinance
-#pip install plotly
+
+
+
+
+
 
 # yfinance documentation:
 # https://pypi.org/project/yfinance/
 
 import numpy as np
 import pandas as pd
-import pandas_datareader as data
-
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-
-import yfinance as yf
 import datetime as dt
 
+#pip install pandas-datareader
+import pandas_datareader as data
+
+#pip install matplotlib
+import matplotlib.pyplot as plt
+
+#pip install plotly
+import plotly.graph_objects as go
+
+#pip install yfinance
+import yfinance as yf
+
+
+#pip install scikit-learn
 from sklearn.preprocessing import MinMaxScaler
+from keras.layes import Dense, Dropout, LSTM
+from keras.models import Sequential
 
 # retrieve data sets from yahoo finance API
 stock = "AAPL"
@@ -116,3 +127,14 @@ print(data_testing.shape)
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data_training_arr = scaler.fit_transform(data_training)
+
+x_train = []
+y_train = []
+
+for i in range(100,data_training_arr.shape[0]):
+    x_train.append(data_training_arr[i-100:i])
+    y_train.append(data_training_arr[i,0])
+
+x_train,y_train = np.array(x_train), np.array(y_train)
+
+# Model Building
