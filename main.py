@@ -4,9 +4,8 @@ import pandas as pd
 
 from stock import Stock
 
-tickers = "AAPL"
+ticker = "AAPL"
 
-stock = Stock(tickers=tickers)
-
-
-print(stock.df.head())
+stock = Stock(ticker=ticker)
+stock.calculate_fvg()
+print(stock.df.head(20))
