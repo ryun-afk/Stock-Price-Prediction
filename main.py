@@ -1,8 +1,27 @@
-import matplotlib as plt
+from matplotlib import pyplot as plt
+
 from stock import Stock
+from fairvaluegap import fvg
+from randomforestclassifier import *
 
-aapl = Stock(ticker="AAPL")
-aapl.calculate_fvg()
-aapl.save_data()
+print('start')
 
-print(aapl.data)
+# initialize data
+AAPL = Stock(ticker='AAPL')
+KHC = Stock(ticker='KHC')
+
+
+AAPL.data['FVG'] = fvg(AAPL.data)
+rfc(AAPL.data)
+
+
+# matplotlib visual
+#AAPL.plot_data()
+#KHC.plot_data()
+#plt.show()
+
+# terminal print
+#AAPL.print_data()
+
+
+print('end')
