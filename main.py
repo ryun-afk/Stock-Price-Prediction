@@ -1,11 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
+import matplotlib as plt
 from stock import Stock
 
-ticker = "AAPL"
+aapl = Stock(ticker="AAPL")
+aapl.calculate_fvg()
+aapl.save_data()
 
-stock = Stock(ticker=ticker)
-stock.calculate_fvg()
-print(stock.df.head(20))
+print(aapl.data)

@@ -6,32 +6,28 @@ import pandas as pd
 import os.path
 
 class Stock:
-    tickers = ""
+    ticker = ""
     csv_name = ""
     data = [[]]
 
     def __init__(self,ticker):
         self.ticker = ticker
         self.csv_name = ticker + " data.csv"
-        self.df = self.read_data()
+        self.data = self.read_data()
         
 
     def read_data(self):
         if not os.path.isfile(self.csv_name):
             self.download_data()
-
         return pd.read_csv(self.csv_name)
 
     def download_data(self):
-        """
-        Downloads stock price data and saves as csv
-        """
-        start = dt.datetime(2020,1,1)
-        end = dt.datetime(2024,12,31)
-        data = yf.download(self.ticker,start,end)
-        data.reset_index(drop=True,inplace=True)
-        data.to_csv(self.csv_name)
+        self.data = yf.Ticker(self.ticker)
+        self.data = self.data.history(period = 'max')
+        self.save_data()
         
+    def save_data(self):
+        self.data.to_csv(self.csv_name)
 
     def calculate_fvg(self,lookback_period=10,body_multiplier=1.5):
         """
@@ -44,15 +40,15 @@ class Stock:
 
         body_list = [0,0,0,0]
         fvg_list = [None,None,None,None]
-        for  i in range(4,len(self.df)):
-            first_high = self.df.High[i-2]
-            first_low = self.df.Low[i-2]
-            third_high = self.df.High[i]
-            third_low = self.df.Low[i]
+        for  i in range(4,len(self.data)):
+            first_high = self.data.High[i-2]
+            first_low = self.data.Low[i-2]
+            third_high = self.data.High[i]
+            third_low = self.data.Low[i]
 
             # calculates candlestick body
-            open = float(self.df.Open[i])
-            close = float(self.df.Close[i])
+            open = float(self.data.Open[i])
+            close = float(self.data.Close[i])
             body = abs(open - close)
             body_list.append(body)
 
@@ -77,7 +73,7 @@ class Stock:
                 fvg_list.append(None)
 
         # body size for each day
-        self.df['Body']= body_list
+        self.data['Body']= body_list
 
         # fair value gap for each day
-        self.df['FVG'] = fvg_list
+        self.data['FVG'] = fvg_list
