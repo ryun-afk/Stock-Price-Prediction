@@ -18,12 +18,16 @@ def rfc(data):
     predictors = ['Open','High','Low','Close']
     predictions = backtest(data,model,predictors)
 
-    # calculate averages within
-    # 2 days
-    # 1 week
-    # 3 months
-    # 1 year
-    horizons = [2,5,60,250]
+    # calculate averages within the dates
+    TWO_DAYS_OF_TRADES = 2
+    ONE_WEEK_OF_TRADES = 5
+    THREE_MONTHS_OF_TRADES = 60
+    ONE_YEAR_OF_TRADES = 250
+
+    horizons = [TWO_DAYS_OF_TRADES,
+                ONE_WEEK_OF_TRADES,
+                THREE_MONTHS_OF_TRADES,
+                ONE_YEAR_OF_TRADES]
 
     new_predictors = []
     for horizon in horizons:
