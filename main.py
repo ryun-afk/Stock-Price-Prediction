@@ -12,16 +12,16 @@ KHC = Stock(ticker='KHC')
 
 
 AAPL.data['FVG'] = fvg(AAPL.data)
-rfc(AAPL.data)
+#rfc(AAPL.data)
 
 
 # matplotlib visual
-#AAPL.plot_data()
-#KHC.plot_data()
-#plt.show()
+AAPL.plot_data()
+KHC.plot_data()
+plt.show()
 
 # terminal print
-#AAPL.print_data()
+AAPL.print_data()
 
 
 print('end')

@@ -28,3 +28,4 @@ from sklearn.preprocessing import MinMaxScaler
 watch later:
 https://www.youtube.com/watch?v=GDMkkmkJigw
 https://www.youtube.com/watch?v=1O_BenficgE&t=568s
+https://www.youtube.com/watch?v=0E_31WqVzCY

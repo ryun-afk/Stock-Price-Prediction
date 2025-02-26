@@ -34,10 +34,10 @@ class Stock:
         plt.ylabel('Price (USD)')
 
     def print_data(self):
-        del self.data['Open']
+        #del self.data['Open']
         del self.data['High']
         del self.data['Low']
-        del self.data['Close']
+        #del self.data['Close']
         del self.data['Volume']
         del self.data['Body']
         print(self.data)
