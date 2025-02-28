@@ -3,14 +3,14 @@ Stock Price Prediction Project: Machine Learning with Random Forest Classifiers 
 import yfinance as yf
 from matplotlib import pyplot as plt
 
-# Retrieving open, high, low, close, and volume of Apple trades from yahoo finance API
+Retrieving open, high, low, close, and volume of Apple trades from yahoo finance API
 data = yf.Ticker('AAPL')
 data = data.history(period='max')
 
-# Calculating fair value gap (FVG):
-# FVG is calculated by subtracting the current market price from the theoretical price. 
-# The theoretical price can be calculated by averaging the open and close prices from historical data. 
-# By comparing the differences, we can add a data column for historical bullish or bearish days. 
+Calculating fair value gap (FVG):
+FVG is calculated by subtracting the current market price from the theoretical price. 
+The theoretical price can be calculated by averaging the open and close prices from historical data. 
+By comparing the differences, we can add a data column for historical bullish or bearish days. 
 
 import statistics
 def fvg(data,lookback_period=10,body_multiplier=1.5):
@@ -54,8 +54,8 @@ def fvg(data,lookback_period=10,body_multiplier=1.5):
     # fair value gap for each day
     return fvg_list
 
-# Implementing Random Forest Classifier (RFC):
-# RFC is a machine learning algorithm used for classification. It combines multiple data sources and makes a prediction based on historical data and training. 
+Implementing Random Forest Classifier (RFC):
+RFC is a machine learning algorithm used for classification. It combines multiple data sources and makes a prediction based on historical data and training. 
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
@@ -123,5 +123,5 @@ def backtest(data,model,predictors,start=250,step=250):
     
     return pd.concat(all_predictions)
 
-# Combining these two methods allows for higher confidence in the algorithm for when to sell or buy. 
-# There are more trading strategies that could be implemented into this data pipeline for quick stock price analysis for weekly trades. 
+Combining these two methods allows for higher confidence in the algorithm for when to sell or buy. 
+There are more trading strategies that could be implemented into this data pipeline for quick stock price analysis for weekly trades. 
